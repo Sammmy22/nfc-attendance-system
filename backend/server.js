@@ -64,7 +64,7 @@ app.get("/class/:nuid", async (req, res) => {
       const resObj = student[0];
       resObj.attendance = true;
 
-      res.json(resObj);
+      res.json(resObj.name);
       io.emit("mark", students);
     } finally {
       // Ensures that the client will close when you finish/error
