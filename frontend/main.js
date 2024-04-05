@@ -42,6 +42,10 @@ const setStudentData = (data) => {
   localStorage.setItem("students", stringifiedData);
 };
 
+document.getElementById("button").addEventListener("click", () => {
+  socket.emit("reset");
+});
+
 const populateTable = () => {
   const stringifiedData = localStorage.getItem("students");
   const parsedData = JSON.parse(stringifiedData);
@@ -64,5 +68,3 @@ const populateTable = () => {
 
   tableBody.innerHTML = tableContent;
 };
-
-// populateTable();
