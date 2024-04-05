@@ -42,7 +42,18 @@ io.on("connection", (socket) => {
     // Emitting the response back to the client
     socket.emit("response", students);
   });
+
+  socket.on("reset", () => {
+    resetAttendance();
+    io.emit("mark", students);
+  });
 });
+
+function resetAttendance() {
+  students.map((student) => {
+    student.attendance = false;
+  });
+}
 
 app.get("/class/:nuid", async (req, res) => {
   const nuid = req.params.nuid;
@@ -61,11 +72,23 @@ app.get("/class/:nuid", async (req, res) => {
 
       const student = students.filter((student) => student.nuid === nuid);
 
-      const resObj = student[0];
-      resObj.attendance = true;
+      if (!student) {
+        res.send("Student not found!");
+        throw new Error("Student not found!");
+      }
 
-      res.json(resObj.name);
-      io.emit("mark", students);
+      const resObj = student[0];
+
+      if (resObj.attendance) {
+        res.send("Attendance already marked!");
+      } else {
+        resObj.attendance = true;
+
+        res.send(resObj.name);
+        io.emit("mark", students);
+      }
+    } catch (error) {
+      console.log(error);
     } finally {
       // Ensures that the client will close when you finish/error
       // await client.close();
