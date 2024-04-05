@@ -2,7 +2,8 @@
 
 ## Installation
 
-`npm install` in both the `frontend` and `backend` folders.
+* `npm install` in both the `frontend` and `backend` folders.
+* Attack the esp32 to the computer and flask the `nfc_attendance.ino` file in the Arduino IDE
 
 ## Backend
 
@@ -25,3 +26,12 @@ Tools used:
 - Vite (For bunding the project)
 - socket.io (Communicating with the backend for changes)
 - Bootstrap (Styling)
+
+
+## Arduino
+
+Components used:
+
+ - ESP32 microcontroller
+ - ssd1306 OLED Display
+ - PN532 nfc chip reader

@@ -111,8 +111,13 @@ void loop() {
         Serial.println(httpCode);
         Serial.println(payload);
         resetdis();
-        display.println(payload+"\n Attendance marked");
-        display.display();
+        if (payload == "Attendance already marked!") {
+          resetndis("Attendance already marked!");
+          delay(2000);
+        } else {
+          resetndis(payload+"\n Attendance marked");
+        }
+        // display.display();
         delay(2000);
         resetdis();
       }
